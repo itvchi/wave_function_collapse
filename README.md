@@ -4,6 +4,6 @@ Wave Function Collapse
 
     Build SDL library steps:
     - cmake -S . -B build --install-prefix=$PWD/../sdllib/
-    - cmake --build build
+    - cmake --build build --parallel $(nproc)
     - cmake --install build
     (change install path) https://stackoverflow.com/questions/6003374/what-is-cmake-equivalent-of-configure-prefix-dir-make-all-install
