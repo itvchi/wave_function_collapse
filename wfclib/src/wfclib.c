@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-tilemap_t* wfclib_init(const int height, const int width) {
+tilemap_t* wfclib_init(const int height, const int width, const unsigned int tile_count) {
 
     int         index;
     tilemap_t   *map = malloc(sizeof(tilemap_t));
@@ -11,6 +11,7 @@ tilemap_t* wfclib_init(const int height, const int width) {
     if (map) {
         map->width = width;
         map->height = height;
+        map->tile_count = tile_count;
 
         /* Allocate memory for pointers to horizontal tile_t arrays */
         map->array = malloc(height * sizeof(tile_t *));
@@ -51,4 +52,15 @@ void wfclib_destroy(tilemap_t *map) {
 
     free(map->array);
     free(map);
+}
+
+void wfclib_random(tilemap_t *map) {
+
+    int     x, y;
+
+    for (y = 0; y < map->height; y++) {
+        for (x = 0; x < map->width; x++) {
+            map->array[y][x].tile_no = rand() % map->tile_count;
+        }
+    }
 }

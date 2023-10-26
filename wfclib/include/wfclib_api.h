@@ -18,10 +18,12 @@ typedef struct {
 typedef struct {
     int width;
     int height;
+    unsigned int tile_count;
     tile_t** array;
 } tilemap_t;
 
-tilemap_t* wfclib_init(const int height, const int width);
+tilemap_t* wfclib_init(const int height, const int width, const unsigned int tile_count);
 void wfclib_destroy(tilemap_t *map);
+void wfclib_random(tilemap_t *map);
 
 #endif /* _WFCLIB_API_H_ */
