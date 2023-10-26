@@ -6,7 +6,7 @@ set(WFC_SOURCES
     src/main.c)
 
 set(SDL_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/sdllib/include)
-set(SDL_LIBRARY ${CMAKE_CURRENT_SOURCE_DIR}/sdllib/lib64)
+set(SDL_LIBRARY ${CMAKE_CURRENT_SOURCE_DIR}/sdllib/lib)
 
 add_executable(wfc ${WFC_SOURCES})
 target_compile_options(wfc PRIVATE -Wall)
