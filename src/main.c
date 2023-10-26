@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_events.h>
+#include "wfclib_api.h"
 
 #define TILE_SIZE       64
 #define TILE_COUNT      4
@@ -27,6 +28,8 @@ int main(int argc, char const *argv[])
     int             tilemap[TILE_Y][TILE_X];
     int             x, y;  
     int             index;
+
+    wfclib_init();
 
     /* Init SDL library */
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {

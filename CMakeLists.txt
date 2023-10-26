@@ -15,3 +15,10 @@ target_include_directories(wfc PRIVATE ${SDL_INCLUDE_DIR})
 target_link_directories(wfc PRIVATE ${SDL_LIBRARY})
 target_link_libraries(wfc SDL3)
 
+# add wfclib to compile and link with the main project
+add_subdirectory(wfclib)
+set(WFCLIB_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/wfclib/include)
+set(WFCLIB_LIBRARY ${CMAKE_CURRENT_SOURCE_DIR}/build/wfclib)
+target_include_directories(wfc PRIVATE ${WFCLIB_INCLUDE_DIR})
+target_link_directories(wfc PRIVATE ${WFCLIB_LIBRARY})
+target_link_libraries(wfc wfclib)
