@@ -29,7 +29,9 @@ int main(int argc, char const *argv[])
     int             x, y;  
     int             index;
 
-    wfclib_init();
+    tilemap_t *map = wfclib_init(TILE_Y, TILE_X);
+    wfclib_destroy(map);
+    return 0;
 
     /* Init SDL library */
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {
