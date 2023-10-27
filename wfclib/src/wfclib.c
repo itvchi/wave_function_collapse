@@ -64,3 +64,19 @@ void wfclib_random(tilemap_t *map) {
         }
     }
 }
+
+void wfclib_print(tilemap_t *map) {
+
+    int     x, y;
+
+    for (y = 0; y < map->height; y++) {
+        for (x = 0; x < map->width; x++) {
+            if (map->array[y][x].state == ENTROPY) {
+                printf("[%*d]  ", 2, map->array[y][x].entropy);
+            } else if (map->array[y][x].state == TILE) {
+                printf("%*d  ", 2, map->array[y][x].tile_no);
+            }
+        }
+        printf("\n");
+    }
+}
