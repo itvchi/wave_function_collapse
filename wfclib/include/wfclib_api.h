@@ -6,13 +6,21 @@ typedef enum {
     TILE
 } tile_state_t;
 
-typedef struct {
+typedef enum {
+    NEIGHBOR_TOP = 0,
+    NEIGHBOR_RIGHT,
+    NEIGHBOR_BOTTOM,
+    NEIGHBOR_LEFT,
+} neighbor_t;
+
+typedef struct tile_s {
     tile_state_t state; 
     /* Store entropy value or final tile number selected by algorithm */
     union {
         int entropy;
         int tile_no;
     };
+    struct tile_s *neighbor[4];
 } tile_t;
 
 typedef struct {
@@ -25,6 +33,7 @@ typedef struct {
 tilemap_t* wfclib_init(const int height, const int width, const unsigned int tile_count);
 void wfclib_destroy(tilemap_t *map);
 void wfclib_random(tilemap_t *map);
-void wfclib_print(tilemap_t *map);
+void wfclib_print_tilemap(tilemap_t *map);
+void wfclib_print_tile(tile_t *tile);
 
 #endif /* _WFCLIB_API_H_ */

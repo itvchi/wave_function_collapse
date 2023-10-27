@@ -38,6 +38,16 @@ tilemap_t* wfclib_init(const int height, const int width, const unsigned int til
                     break;
                 }
             }
+
+            /* Assign neighbors for each tile */
+            for (index_y = 0; index_y < height; index_y++) {
+                for (index_x = 0; index_x < width; index_x++) {
+                    map->array[index_y][index_x].neighbor[NEIGHBOR_TOP] = ((index_y > 0) ? &map->array[index_y - 1][index_x] : NULL);
+                    map->array[index_y][index_x].neighbor[NEIGHBOR_RIGHT] = ((index_x + 1 < width) ? &map->array[index_y][index_x + 1] : NULL);
+                    map->array[index_y][index_x].neighbor[NEIGHBOR_BOTTOM] = ((index_y + 1 < height) ? &map->array[index_y + 1][index_x] : NULL);
+                    map->array[index_y][index_x].neighbor[NEIGHBOR_LEFT] = ((index_x > 0) ? &map->array[index_y][index_x - 1] : NULL);
+                }
+            }
         } else {
             free(map);
             map = NULL;
@@ -72,7 +82,7 @@ void wfclib_random(tilemap_t *map) {
     }
 }
 
-void wfclib_print(tilemap_t *map) {
+void wfclib_print_tilemap(tilemap_t *map) {
 
     int     x, y;
 
@@ -86,4 +96,35 @@ void wfclib_print(tilemap_t *map) {
         }
         printf("\n");
     }
+}
+
+void wfclib_print_tile(tile_t *tile) {
+
+    /* Top neighbor */
+    if (tile->neighbor[NEIGHBOR_TOP]) {
+        printf("[    ]  [%*d]  [    ]\n", 4, tile->neighbor[NEIGHBOR_TOP]->tile_no);
+    } else {
+        printf("[    ]  [%s]  [    ]\n", "NULL");
+    }
+    /* Left neighbor */
+    if (tile->neighbor[NEIGHBOR_LEFT]) {
+        printf("[%*d]  ", 4, tile->neighbor[NEIGHBOR_LEFT]->tile_no);
+    } else {
+        printf("[%s]  ", "NULL");
+    }
+    /* This tile */
+    printf("[%*d]  ", 4, tile->tile_no);
+    /* Right neighbor */
+    if (tile->neighbor[NEIGHBOR_RIGHT]) {
+        printf("[%*d]\n", 4, tile->neighbor[NEIGHBOR_RIGHT]->tile_no);
+    } else {
+        printf("[%s]\n", "NULL");
+    }
+    /* Bottom neighbor */
+    if (tile->neighbor[NEIGHBOR_BOTTOM]) {
+        printf("[    ]  [%*d]  [    ]\n", 4, tile->neighbor[NEIGHBOR_BOTTOM]->tile_no);
+    } else {
+        printf("[    ]  [%s]  [    ]\n", "NULL");
+    }
+    printf("\n");
 }
