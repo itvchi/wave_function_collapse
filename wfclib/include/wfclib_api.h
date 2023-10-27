@@ -11,6 +11,7 @@ typedef enum {
     NEIGHBOR_RIGHT,
     NEIGHBOR_BOTTOM,
     NEIGHBOR_LEFT,
+    NEIGHBOR_NUM
 } neighbor_t;
 
 typedef struct tile_s {
@@ -33,6 +34,7 @@ typedef struct {
 tilemap_t* wfclib_init(const int height, const int width, const unsigned int tile_count);
 void wfclib_destroy(tilemap_t *map);
 void wfclib_random(tilemap_t *map);
+void wfclib_generate_step(tilemap_t *map);
 void wfclib_print_tilemap(tilemap_t *map);
 void wfclib_print_tile(tile_t *tile);
 

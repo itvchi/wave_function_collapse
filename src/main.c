@@ -130,7 +130,8 @@ int main(int argc, char const *argv[])
         SDL_RenderPresent(renderer);
 
         /* Generate new tiles to display */
-        wfclib_random(map);
+        //wfclib_random(map);
+        wfclib_generate_step(map);
 
         /* Delay before new run */
         SDL_Delay(1000);

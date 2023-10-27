@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+static int step = 0;
+
 tilemap_t* wfclib_init(const int height, const int width, const unsigned int tile_count) {
 
     int         index_y, index_x;
@@ -82,9 +84,42 @@ void wfclib_random(tilemap_t *map) {
     }
 }
 
+void wfclib_update_neighbors(tile_t *tile) {
+
+    int index;
+    for (index = 0; index < NEIGHBOR_NUM; index++)
+    if (tile->neighbor[index]) {
+        if (tile->neighbor[index]->entropy > 0) {
+            tile->neighbor[index]->entropy--;
+        }
+    }
+}
+
+void wfclib_generate_step(tilemap_t *map) {
+
+    int x, y;
+    tile_t *tile_ptr;
+
+    if (step == 0) {
+        x = rand() % map->width;
+        y = rand() % map->height;
+
+        tile_ptr = &map->array[y][x];
+        printf("OK\n");
+
+        tile_ptr->state = TILE;
+        tile_ptr->tile_no = rand() % map->tile_count;
+        wfclib_update_neighbors(tile_ptr);
+    } else {
+        
+    }
+
+    step++;
+}
+
 void wfclib_print_tilemap(tilemap_t *map) {
 
-    int     x, y;
+    int x, y;
 
     for (y = 0; y < map->height; y++) {
         for (x = 0; x < map->width; x++) {
