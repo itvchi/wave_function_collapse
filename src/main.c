@@ -23,8 +23,8 @@ int main(int argc, char const *argv[])
     bool            is_running;
     SDL_Event       event;  
 
-    SDL_FRect       texture_tile[TILE_COUNT];
-    SDL_FRect       window_tile[TILE_Y][TILE_X];
+    SDL_FRect       texture_rect[TILE_COUNT];
+    SDL_FRect       window_rect[TILE_Y][TILE_X];
     int             x, y;  
     int             index;
 
@@ -70,19 +70,19 @@ int main(int argc, char const *argv[])
 
     /* Create tile rectangles */
     for (index = 0; index < TILE_COUNT; index++) {
-        texture_tile[index].x = 0;
-        texture_tile[index].y = index * TILE_SIZE;
-        texture_tile[index].w = TILE_SIZE;
-        texture_tile[index].h = TILE_SIZE;
+        texture_rect[index].x = 0;
+        texture_rect[index].y = index * TILE_SIZE;
+        texture_rect[index].w = TILE_SIZE;
+        texture_rect[index].h = TILE_SIZE;
     }
 
     /* Create window rectangles */
     for (y = 0; y < TILE_Y; y++) {
         for (x = 0; x < TILE_X; x++) {
-            window_tile[y][x].x = x * TILE_SIZE;
-            window_tile[y][x].y = y * TILE_SIZE;
-            window_tile[y][x].w = TILE_SIZE;
-            window_tile[y][x].h = TILE_SIZE;
+            window_rect[y][x].x = x * TILE_SIZE;
+            window_rect[y][x].y = y * TILE_SIZE;
+            window_rect[y][x].w = TILE_SIZE;
+            window_rect[y][x].h = TILE_SIZE;
         }
     }
 
@@ -100,12 +100,12 @@ int main(int argc, char const *argv[])
         SDL_SetRenderDrawColor(renderer, 0x66, 0x66, 0xBB, 0xFF);
         SDL_RenderClear(renderer);
 
-        /* Copy texture_tile into window_tile based on tile selected by tilemap */
+        /* Copy texture_rect into window_rect based on tile selected by tilemap */
         int tile_index;
         for (y = 0; y < TILE_Y; y++) {
             for (x = 0; x < TILE_X; x++) {
                 tile_index = map->array[y][x].tile_no;
-                SDL_RenderTexture(renderer, texture, &texture_tile[tile_index], &window_tile[y][x]);
+                    SDL_RenderTexture(renderer, texture, &texture_rect[tile_index], &window_rect[y][x]);
             }
         }
 
