@@ -5,7 +5,7 @@
 
 tilemap_t* wfclib_init(const int height, const int width, const unsigned int tile_count) {
 
-    int         index;
+    int         index_y, index_x;
     tilemap_t   *map = malloc(sizeof(tilemap_t));
 
     if (map) {
@@ -18,12 +18,18 @@ tilemap_t* wfclib_init(const int height, const int width, const unsigned int til
 
         if (map->array) {
             /* Allocate horizontal tile_t arrays */
-            for (index = 0; index < height; index++) {
-                map->array[index] = malloc(width * sizeof(tile_t));
+            for (index_y = 0; index_y < height; index_y++) {
+                map->array[index_y] = malloc(width * sizeof(tile_t));
 
-                if (map->array[index] == NULL) {
-                    for (index = index - 1; index >= 0; index--) {
-                        free(map->array[index]);
+                /* Init tile_t structure members */
+                if (map->array[index_y]) {
+                    for (index_x = 0; index_x < width; index_x++) {
+                        map->array[index_y][index_x].state = ENTROPY;
+                        map->array[index_y][index_x].entropy = tile_count;
+                    }
+                } else {
+                    for (index_y = index_y - 1; index_y >= 0; index_y--) {
+                        free(map->array[index_y]);
                     }
 
                     free(map->array);
@@ -60,6 +66,7 @@ void wfclib_random(tilemap_t *map) {
 
     for (y = 0; y < map->height; y++) {
         for (x = 0; x < map->width; x++) {
+            map->array[y][x].state = TILE;
             map->array[y][x].tile_no = rand() % map->tile_count;
         }
     }
@@ -74,7 +81,7 @@ void wfclib_print(tilemap_t *map) {
             if (map->array[y][x].state == ENTROPY) {
                 printf("[%*d]  ", 2, map->array[y][x].entropy);
             } else if (map->array[y][x].state == TILE) {
-                printf("%*d  ", 2, map->array[y][x].tile_no);
+                printf("%*d  ", 4, map->array[y][x].tile_no);
             }
         }
         printf("\n");
