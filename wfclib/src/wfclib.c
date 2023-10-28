@@ -84,12 +84,47 @@ void wfclib_random(tilemap_t *map) {
     }
 }
 
+int wfclib_find_min_entropy(tilemap_t *map) {
+
+    int x, y;
+    int min_entropy = map->tile_count + 1; /* Init with non existing value */
+
+    for (y = 0; y < map->height; y++) {
+        for (x = 0; x < map->width; x++) {
+            if ((map->array[y][x].state == ENTROPY) &&
+                (map->array[y][x].entropy <= min_entropy)) {
+                    min_entropy = map->array[y][x].entropy;
+            }
+        }
+    }
+
+    return min_entropy;
+}
+
+tile_t* wfclib_find_with_entropy(tilemap_t *map, int entropy) {
+
+    int x, y;
+    tile_t *tile_ptr = NULL;
+
+    for (y = 0; y < map->height; y++) {
+        for (x = 0; x < map->width; x++) {
+            if ((map->array[y][x].state == ENTROPY) &&
+                (map->array[y][x].entropy == entropy)) {
+                    tile_ptr = &map->array[y][x];
+            }
+        }
+    }
+
+    return tile_ptr;
+}
+
 void wfclib_update_neighbors(tile_t *tile) {
 
     int index;
     for (index = 0; index < NEIGHBOR_NUM; index++)
     if (tile->neighbor[index]) {
-        if (tile->neighbor[index]->entropy > 0) {
+        if ((tile->neighbor[index]->state == ENTROPY) &&
+            (tile->neighbor[index]->entropy > 0)) {
             tile->neighbor[index]->entropy--;
         }
     }
@@ -99,19 +134,31 @@ void wfclib_generate_step(tilemap_t *map) {
 
     int x, y;
     tile_t *tile_ptr;
+    int min_entropy;
 
     if (step == 0) {
         x = rand() % map->width;
         y = rand() % map->height;
 
         tile_ptr = &map->array[y][x];
-        printf("OK\n");
+        printf("Step 1 done\n");
 
         tile_ptr->state = TILE;
         tile_ptr->tile_no = rand() % map->tile_count;
         wfclib_update_neighbors(tile_ptr);
     } else {
-        
+        min_entropy = wfclib_find_min_entropy(map);
+
+        if (min_entropy <= map->tile_count) {
+            printf("Found min entropy: %d\n", min_entropy);
+            tile_ptr = wfclib_find_with_entropy(map, min_entropy);
+
+            tile_ptr->state = TILE;
+            tile_ptr->tile_no = rand() % map->tile_count;
+            wfclib_update_neighbors(tile_ptr);
+        } else {
+            printf("Nothing to do\n");
+        }
     }
 
     step++;

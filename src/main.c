@@ -134,7 +134,7 @@ int main(int argc, char const *argv[])
         wfclib_generate_step(map);
 
         /* Delay before new run */
-        SDL_Delay(1000);
+        SDL_Delay(100);
     }
 
     // Close and destroy the window
