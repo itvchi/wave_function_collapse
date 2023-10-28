@@ -8,7 +8,7 @@
 #include "wfclib_api.h"
 
 #define TILE_SIZE       64
-#define TILE_COUNT      4
+#define TILE_COUNT      12
 #define TILE_X          28
 #define TILE_Y          14
 #define WINDOW_WIDTH    TILE_SIZE * TILE_X
@@ -134,7 +134,7 @@ int main(int argc, char const *argv[])
         wfclib_generate_step(map);
 
         /* Delay before new run */
-        SDL_Delay(100);
+        SDL_Delay(40);
     }
 
     // Close and destroy the window

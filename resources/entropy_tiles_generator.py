@@ -2,7 +2,7 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageFont
 
-TILE_COUNT = 4
+TILE_COUNT = 12
 TILE_SIZE = 64
 
 img = Image.new( 'RGB', (TILE_SIZE, TILE_COUNT * TILE_SIZE), "black")

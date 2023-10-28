@@ -106,11 +106,11 @@ tile_t* wfclib_find_with_entropy(tilemap_t *map, int entropy) {
     int x, y;
     tile_t *tile_ptr = NULL;
 
-    for (y = 0; y < map->height; y++) {
-        for (x = 0; x < map->width; x++) {
-            if ((map->array[y][x].state == ENTROPY) &&
-                (map->array[y][x].entropy == entropy)) {
-                    tile_ptr = &map->array[y][x];
+        for (y = 0; y < map->height; y++) {
+            for (x = 0; x < map->width; x++) {
+                if ((map->array[y][x].state == ENTROPY) &&
+                    (map->array[y][x].entropy == entropy)) {
+                        tile_ptr = &map->array[y][x];
             }
         }
     }
@@ -120,12 +120,20 @@ tile_t* wfclib_find_with_entropy(tilemap_t *map, int entropy) {
 
 void wfclib_update_neighbors(tile_t *tile) {
 
-    int index;
+    int index, random;
+
     for (index = 0; index < NEIGHBOR_NUM; index++)
     if (tile->neighbor[index]) {
         if ((tile->neighbor[index]->state == ENTROPY) &&
             (tile->neighbor[index]->entropy > 0)) {
-            tile->neighbor[index]->entropy--;
+                tile->neighbor[index]->entropy--;
+                random = rand();
+                if (random % 2) {
+                    tile->neighbor[index]->entropy--;
+                } 
+                if(random % 3) {
+                    tile->neighbor[index]->entropy--;
+                }
         }
     }
 }
