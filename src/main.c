@@ -33,6 +33,59 @@ int main(int argc, char const *argv[])
     int             index;
 
     tilemap_t *map = wfclib_init(TILE_Y, TILE_X, TILE_COUNT);
+    /* Tile 0 rules */
+    wfclib_tilemap_add_rule(map, 0, NEIGHBOR_TOP,       (int[]){2, 5, 8, 9}, 4);
+    wfclib_tilemap_add_rule(map, 0, NEIGHBOR_RIGHT,     (int[]){3, 6}, 2);
+    wfclib_tilemap_add_rule(map, 0, NEIGHBOR_BOTTOM,    (int[]){1, 2}, 2);
+    wfclib_tilemap_add_rule(map, 0, NEIGHBOR_LEFT,      (int[]){6, 7, 8, 9}, 4);
+    /* Tile 1 rules */
+    wfclib_tilemap_add_rule(map, 1, NEIGHBOR_TOP,       (int[]){0, 1}, 2);
+    wfclib_tilemap_add_rule(map, 1, NEIGHBOR_RIGHT,     (int[]){4}, 1);
+    wfclib_tilemap_add_rule(map, 1, NEIGHBOR_BOTTOM,    (int[]){1, 2}, 2);
+    wfclib_tilemap_add_rule(map, 1, NEIGHBOR_LEFT,      (int[]){6, 7, 8, 9}, 4);
+    /* Tile 2 rules */
+    wfclib_tilemap_add_rule(map, 2, NEIGHBOR_TOP,       (int[]){0, 1}, 2);
+    wfclib_tilemap_add_rule(map, 2, NEIGHBOR_RIGHT,     (int[]){5, 8}, 2);
+    wfclib_tilemap_add_rule(map, 2, NEIGHBOR_BOTTOM,    (int[]){0, 3, 6, 9}, 4);
+    wfclib_tilemap_add_rule(map, 2, NEIGHBOR_LEFT,      (int[]){6, 7, 8, 9}, 4);
+    /* Tile 3 rules */
+    wfclib_tilemap_add_rule(map, 3, NEIGHBOR_TOP,       (int[]){2, 5, 8, 9}, 4);
+    wfclib_tilemap_add_rule(map, 3, NEIGHBOR_RIGHT,     (int[]){3, 6}, 2);
+    wfclib_tilemap_add_rule(map, 3, NEIGHBOR_BOTTOM,    (int[]){4}, 1);
+    wfclib_tilemap_add_rule(map, 3, NEIGHBOR_LEFT,      (int[]){0, 3}, 2);
+    /* Tile 4 rules */
+    wfclib_tilemap_add_rule(map, 4, NEIGHBOR_TOP,       (int[]){3}, 1);
+    wfclib_tilemap_add_rule(map, 4, NEIGHBOR_RIGHT,     (int[]){7}, 1);
+    wfclib_tilemap_add_rule(map, 4, NEIGHBOR_BOTTOM,    (int[]){5}, 1);
+    wfclib_tilemap_add_rule(map, 4, NEIGHBOR_LEFT,      (int[]){1}, 1);
+    /* Tile 5 rules */
+    wfclib_tilemap_add_rule(map, 5, NEIGHBOR_TOP,       (int[]){4}, 1);
+    wfclib_tilemap_add_rule(map, 5, NEIGHBOR_RIGHT,     (int[]){5, 8}, 2);
+    wfclib_tilemap_add_rule(map, 5, NEIGHBOR_BOTTOM,    (int[]){2, 5, 8 ,9}, 4);
+    wfclib_tilemap_add_rule(map, 5, NEIGHBOR_LEFT,      (int[]){2, 5}, 2);
+    /* Tile 6 rules */
+    wfclib_tilemap_add_rule(map, 6, NEIGHBOR_TOP,       (int[]){2, 5, 8, 9}, 4);
+    wfclib_tilemap_add_rule(map, 6, NEIGHBOR_RIGHT,     (int[]){0, 1, 2, 9}, 4);
+    wfclib_tilemap_add_rule(map, 6, NEIGHBOR_BOTTOM,    (int[]){7, 8}, 2);
+    wfclib_tilemap_add_rule(map, 6, NEIGHBOR_LEFT,      (int[]){0, 3}, 2);
+    /* Tile 7 rules */
+    wfclib_tilemap_add_rule(map, 7, NEIGHBOR_TOP,       (int[]){6, 7}, 2);
+    wfclib_tilemap_add_rule(map, 7, NEIGHBOR_RIGHT,     (int[]){0, 1, 2, 9}, 4);
+    wfclib_tilemap_add_rule(map, 7, NEIGHBOR_BOTTOM,    (int[]){7, 8}, 2);
+    wfclib_tilemap_add_rule(map, 7, NEIGHBOR_LEFT,      (int[]){4}, 1);
+    /* Tile 8 rules */
+    wfclib_tilemap_add_rule(map, 8, NEIGHBOR_TOP,       (int[]){6, 7}, 3);
+    wfclib_tilemap_add_rule(map, 8, NEIGHBOR_RIGHT,     (int[]){0, 1, 2, 9}, 4);
+    wfclib_tilemap_add_rule(map, 8, NEIGHBOR_BOTTOM,    (int[]){0, 3, 6, 9}, 4);
+    wfclib_tilemap_add_rule(map, 8, NEIGHBOR_LEFT,      (int[]){2, 5}, 2);
+    /* Tile 9 rules */
+    wfclib_tilemap_add_rule(map, 9, NEIGHBOR_TOP,       (int[]){2, 5, 8, 9}, 4);
+    wfclib_tilemap_add_rule(map, 9, NEIGHBOR_RIGHT,     (int[]){0, 1, 2, 9}, 4);
+    wfclib_tilemap_add_rule(map, 9, NEIGHBOR_BOTTOM,    (int[]){0, 3, 6, 9}, 4);
+    wfclib_tilemap_add_rule(map, 9, NEIGHBOR_LEFT,      (int[]){6, 7, 8, 9}, 4);
+
+    wfclib_print_rules(map);
+    return 0;
 
     /* Init SDL library */
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {

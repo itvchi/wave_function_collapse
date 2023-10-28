@@ -2,6 +2,7 @@
 #include "wfclib.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 static int step = 0;
 
@@ -14,6 +15,7 @@ tilemap_t* wfclib_init(const int height, const int width, const unsigned int til
         map->width = width;
         map->height = height;
         map->tile_count = tile_count;
+        map->rules = NULL;
 
         /* Allocate memory for pointers to horizontal tile_t arrays */
         map->array = malloc(height * sizeof(tile_t *));
@@ -129,7 +131,7 @@ void wfclib_update_neighbors(tile_t *tile) {
 
     int index, random;
 
-    for (index = 0; index < NEIGHBOR_NUM; index++)
+    for (index = NEIGHBOR_TOP; index < NEIGHBOR_NUM; index++)
     if (tile->neighbor[index]) {
         if ((tile->neighbor[index]->state == ENTROPY) &&
             (tile->neighbor[index]->entropy > 0)) {
@@ -177,4 +179,21 @@ void wfclib_generate_step(tilemap_t *map) {
     }
 
     step++;
+}
+
+void wfclib_tilemap_add_rule(tilemap_t *map, int tile_no, neighbor_t side, int *tile_no_list, int count) {
+
+    /* Init map->rules array if not initialized yet */
+    if (map->rules == NULL) {
+        map->rules = calloc(map->tile_count, sizeof(tile_rules_t));
+    }   
+
+    /* Add rule */
+    if (map->rules[tile_no].possible_neighbor[side].tile_no_list == NULL) {
+        map->rules[tile_no].possible_neighbor[side].count = count;
+        map->rules[tile_no].possible_neighbor[side].tile_no_list = malloc(count * sizeof(int));
+        if (map->rules[tile_no].possible_neighbor[side].tile_no_list) {
+            memcpy(map->rules[tile_no].possible_neighbor[side].tile_no_list, tile_no_list, count * sizeof(int));
+        }
+    }
 }

@@ -1,6 +1,8 @@
 #include "wfclib_api.h"
 #include <stdio.h>
 
+char *neighbor_string[4] = {"TOP", "RIGHT", "BOTTOM", "LEFT"};
+
 void wfclib_print_tilemap(tilemap_t *map) {
 
     int x, y;
@@ -46,4 +48,24 @@ void wfclib_print_tile(tile_t *tile) {
         printf("[    ]  [%s]  [    ]\n", "NULL");
     }
     printf("\n");
+}
+
+void wfclib_print_rules(tilemap_t *map) {
+
+    int tile_no, neighbor, tile_count, tile_idx;
+
+    printf("%5s %10s   %s\n", "TILE", "NEIGHBOR", "TILE_LIST");
+
+    for (tile_no = 0; tile_no < map->tile_count; tile_no++) {
+        for (neighbor = NEIGHBOR_TOP; neighbor < NEIGHBOR_NUM; neighbor++) {
+            tile_count = map->rules[tile_no].possible_neighbor[neighbor].count;
+            if (tile_count > 0) {
+                printf("%5d %10s   ", tile_no, neighbor_string[neighbor]);
+                for (tile_idx = 0; tile_idx < tile_count; tile_idx++) {
+                    printf("%d, ", map->rules[tile_no].possible_neighbor[neighbor].tile_no_list[tile_idx]);
+                }
+                printf("\n");
+            }
+        }
+    }
 }
