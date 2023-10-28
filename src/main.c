@@ -8,11 +8,14 @@
 #include "wfclib_api.h"
 
 #define TILE_SIZE       64
-#define TILE_COUNT      12
+#define TILE_COUNT      10
 #define TILE_X          28
 #define TILE_Y          14
 #define WINDOW_WIDTH    TILE_SIZE * TILE_X
 #define WINDOW_HEIGHT   TILE_SIZE * TILE_Y
+
+#define TILE_FILE "../resources/map.bmp"
+#define ENTROPY_FILE "../resources/entropy.bmp"
 
 int main(int argc, char const *argv[])
 {
@@ -52,8 +55,8 @@ int main(int argc, char const *argv[])
     }
 
     /* Load tile bitmat into surface */
-    tile_surface = SDL_LoadBMP("../resources/tiles.bmp");
-    entropy_surface = SDL_LoadBMP("../resources/entropy.bmp");
+    tile_surface = SDL_LoadBMP(TILE_FILE);
+    entropy_surface = SDL_LoadBMP(ENTROPY_FILE);
 
     /* Create textures from surface and free surface */
     tile_texture = SDL_CreateTextureFromSurface(renderer, tile_surface);
