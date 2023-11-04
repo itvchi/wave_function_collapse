@@ -28,6 +28,8 @@ tilemap_t* wfclib_init(const int height, const int width, const unsigned int til
                 /* Init tile_t structure members */
                 if (map->array[index_y]) {
                     for (index_x = 0; index_x < width; index_x++) {
+                        map->array[index_y][index_x].y = index_y;
+                        map->array[index_y][index_x].x = index_x;
                         map->array[index_y][index_x].state = ENTROPY;
                         map->array[index_y][index_x].entropy = tile_count;
                     }

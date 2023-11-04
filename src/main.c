@@ -86,7 +86,6 @@ int main(int argc, char const *argv[])
     wfclib_tilemap_add_rule(map, 9, NEIGHBOR_LEFT,      (int[]){6, 7, 8, 9}, 4);
 
     wfclib_print_rules(map);
-    return 0;
 
     /* Init SDL library */
     if (SDL_Init(SDL_INIT_VIDEO) < 0) {

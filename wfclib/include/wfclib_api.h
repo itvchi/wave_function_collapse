@@ -24,6 +24,7 @@ typedef struct {
 } tile_rules_t;
 
 typedef struct tile_s {
+    int x, y;
     tile_state_t state; 
     /* Store entropy value or final tile number selected by algorithm */
     union {
