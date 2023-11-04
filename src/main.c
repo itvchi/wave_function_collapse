@@ -9,6 +9,7 @@
 
 #define TILE_SIZE       64
 #define TILE_COUNT      10
+#define ENTROPY_COUNT   (TILE_COUNT + 1) /* From 0 to TILE_COUNT */
 #define TILE_X          28
 #define TILE_Y          14
 #define WINDOW_WIDTH    TILE_SIZE * TILE_X
@@ -26,7 +27,7 @@ int main(int argc, char const *argv[])
     bool            is_running;
     SDL_Event       event;  
 
-    SDL_FRect       entropy_rect[TILE_COUNT];
+    SDL_FRect       entropy_rect[ENTROPY_COUNT];
     SDL_FRect       texture_rect[TILE_COUNT];
     SDL_FRect       window_rect[TILE_Y][TILE_X];
     int             x, y;  
@@ -129,7 +130,7 @@ int main(int argc, char const *argv[])
     // wfclib_print_tile(&map->array[TILE_Y - 1][TILE_X - 1]);
 
     /* Create entropy rectangles */
-    for (index = 0; index < TILE_COUNT; index++) {
+    for (index = 0; index < ENTROPY_COUNT; index++) {
         entropy_rect[index].x = 0;
         entropy_rect[index].y = index * TILE_SIZE;
         entropy_rect[index].w = TILE_SIZE;
