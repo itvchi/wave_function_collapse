@@ -3,18 +3,21 @@
 #include <string.h>
 
 stack_t *wfclib_stack_init(unsigned int max_size) {
-    stack_t *new_stack;
-    new_stack = calloc(1, sizeof(stack_t));
+    stack_t *new_stack = NULL;
 
-    if (new_stack) {
-        new_stack->element = calloc(max_size, sizeof(void *));
+    if (max_size > 0) {
+        new_stack = calloc(1, sizeof(stack_t));
 
-        if (new_stack->element) {
-            new_stack->size = 0;
-            memcpy((unsigned int *)&new_stack->capacity, &max_size, sizeof(unsigned int));
-        } else {
-            free(new_stack);
-            new_stack = NULL;
+        if (new_stack) {
+            new_stack->element = calloc(max_size, sizeof(void *));
+
+            if (new_stack->element) {
+                new_stack->size = 0;
+                memcpy((unsigned int *)&new_stack->capacity, &max_size, sizeof(unsigned int));
+            } else {
+                free(new_stack);
+                new_stack = NULL;
+            }
         }
     }
 
