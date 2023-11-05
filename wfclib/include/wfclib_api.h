@@ -15,8 +15,9 @@ typedef enum {
 } neighbor_t;
 
 typedef struct {
-    int count;
-    int *tile_no_list;
+    unsigned int count;
+    unsigned int possible_tiles_bitfield;
+    unsigned int *possible_tile_no_list;
 } tile_rule_t;
 
 typedef struct {
@@ -26,10 +27,10 @@ typedef struct {
 typedef struct tile_s {
     int x, y;
     tile_state_t state; 
-    /* Store entropy value or final tile number selected by algorithm */
+    unsigned int entropy_bitfields;
     union {
-        int entropy;
-        int tile_no;
+        unsigned int entropy_value;
+        unsigned int tile_no;
     };
     struct tile_s *neighbor[4];
 } tile_t;

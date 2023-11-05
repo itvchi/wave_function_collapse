@@ -106,6 +106,10 @@ int main(int argc, char const *argv[])
             }
         }
 
+        /* Generate new tiles to display */
+        //wfclib_random(map);
+        wfclib_generate_step(map);
+
         /* Clear and draw the screen */
         SDL_SetRenderDrawColor(renderer, 0x66, 0x66, 0xBB, 0xFF);
         SDL_RenderClear(renderer);
@@ -115,7 +119,7 @@ int main(int argc, char const *argv[])
         for (y = 0; y < TILE_Y; y++) {
             for (x = 0; x < TILE_X; x++) {
                 if (map->array[y][x].state == ENTROPY) {
-                    tile_index = map->array[y][x].entropy - 1;
+                    tile_index = map->array[y][x].entropy_value;
                     SDL_RenderTexture(renderer, entropy_texture, &entropy_rect[tile_index], &window_rect[y][x]);
                 } else {
                     tile_index = map->array[y][x].tile_no;
@@ -127,12 +131,8 @@ int main(int argc, char const *argv[])
         /* Display the renderer */
         SDL_RenderPresent(renderer);
 
-        /* Generate new tiles to display */
-        //wfclib_random(map);
-        wfclib_generate_step(map);
-
         /* Delay before new run */
-        SDL_Delay(40);
+        SDL_Delay(50);
     }
 
     // Close and destroy the window
